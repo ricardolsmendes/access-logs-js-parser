@@ -16,6 +16,7 @@
     "test": "mocha --require esm"
   },
   "devDependencies": {
+    "esm": "^3.2.25",
     "mocha": "^6.2.2"
   }
 }
