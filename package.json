@@ -4,6 +4,9 @@
   "description": "Parse access logs (from Nginx, Tomcat, and so on) into Node.js data objects.",
   "author": "Ricardo Mendes <ricardolsmendes@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha --require esm"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ricardolsmendes/access-logs-node-parser.git"
@@ -12,9 +15,6 @@
     "url": "https://github.com/ricardolsmendes/access-logs-node-parser/issues"
   },
   "homepage": "https://github.com/ricardolsmendes/access-logs-node-parser#readme",
-  "scripts": {
-    "test": "mocha --require esm"
-  },
   "devDependencies": {
     "esm": "^3.2.25",
     "mocha": "^6.2.2"
