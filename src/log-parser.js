@@ -1,14 +1,24 @@
-import tomcatAccessLogParser from 'tomcat-access-log-parser';
-
 import LogData from './log-data';
+
+var tomcatAccessLogParser = require('tomcat-access-log-parser');
 
 class LogParser {
 
   /**
+   * @param {Array} lines
+   */
+  parseTomcatCommonFormat(lines) {
+    parsedLines = [];
+    lines.forEach(function(line) {
+      parsedLines.append(this.parseTomcatCommonFormatLine(line))
+    });
+    return parsedLines;
+  }
+
+  /**
    * @param {string} line
    */
-  parseTomcatCommonFormat(line) {
-
+  parseTomcatCommonFormatLine(line) {
     const logString = tomcatAccessLogParser.parseCommonFormat(line);
     const logObject = JSON.parse(logString);
 

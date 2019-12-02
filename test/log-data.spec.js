@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import LogData from '../app/log-data';
+import LogData from '../src/log-data';
 
 describe('LogData', function() {
 
