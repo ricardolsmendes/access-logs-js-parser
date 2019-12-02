@@ -1,57 +1,59 @@
 class LogData {
 
-    /**
-     * @param {string} remoteAddr
-     * @param {string} remoteUser
-     * @param {dateTime} dateTime
-     * @param {string} request
-     * @param {number} status
-     * @param {number} bytesSent
-     * @param {string} httpReferer
-     * @param {string} userAgent
-     */
-    constructor(remoteAddr, remoteUser, dateTime, request, status, bytesSent, httpReferer, userAgent) {
-        this._remoteAddr = remoteAddr;
-        this._remoteUser = remoteUser;
-        this._dateTime = dateTime;
-        this._request = request;
-        this._status = status;
-        this._bytesSent = bytesSent;
-        this._httpReferer = httpReferer;
-        this._userAgent = userAgent;
-    }
+  /**
+   * @param {string} remoteHost
+   * @param {string} remoteUser
+   * @param {Date} datetime
+   * @param {string} request
+   * @param {number} httpStatus
+   * @param {number} bytesSent
+   * @param {string} httpReferer
+   * @param {string} userAgent
+   */
+  constructor(
+    remoteHost, remoteUser, datetime, request, httpStatus, bytesSent, httpReferer, userAgent) {
 
-    get remoteAddr() {
-        return this._remoteAddr;
-    }
+    this._remoteHost = remoteHost;
+    this._remoteUser = remoteUser;
+    this._datetime = datetime;
+    this._request = request;
+    this._httpStatus = httpStatus;
+    this._bytesSent = bytesSent;
+    this._httpReferer = httpReferer;
+    this._userAgent = userAgent;
+  }
 
-    get remoteUser() {
-        return this._remoteUser;
-    }
+  get remoteHost() {
+    return this._remoteHost;
+  }
 
-    get dateTime() {
-        return this._dateTime;
-    }
+  get remoteUser() {
+    return this._remoteUser;
+  }
 
-    get request() {
-        return this._request;
-    }
+  get datetime() {
+    return this._datetime;
+  }
 
-    get status() {
-        return this._status;
-    }
+  get request() {
+    return this._request;
+  }
 
-    get bytesSent() {
-        return this._bytesSent;
-    }
+  get httpStatus() {
+    return this._httpStatus;
+  }
 
-    get httpReferer() {
-        return this._httpReferer;
-    }
+  get bytesSent() {
+    return this._bytesSent;
+  }
 
-    get userAgent() {
-        return this._userAgent;
-    }
+  get httpReferer() {
+    return this._httpReferer;
+  }
+
+  get userAgent() {
+    return this._userAgent;
+  }
 }
 
 export default LogData;

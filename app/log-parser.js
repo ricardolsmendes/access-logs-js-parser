@@ -1,38 +1,28 @@
+import tomcatAccessLogParser from 'tomcat-access-log-parser';
+
 import LogData from './log-data';
 
 class LogParser {
 
-    /**
-     * @param {string} pattern
-     */
-    constructor(pattern) {
-        this._regexp = new RegExp(pattern);
-    }
+  /**
+   * @param {string} line
+   */
+  parseTomcatCommonFormat(line) {
 
-    /**
-     * @param {string} newPattern
-     */
-    set pattern(newPattern) {
-        this._regexp = new RegExp(newPattern);
-    }
+    const logString = tomcatAccessLogParser.parseCommonFormat(line);
+    const logObject = JSON.parse(logString);
 
-    /**
-     * @param {string} log
-     */
-    parse(log) {
-        const matchObj = this._regexp.exec(log);
-
-        return new LogData(
-            matchObj.groups.remoteAddr,
-            matchObj.groups.remoteUser,
-            matchObj.groups.dateTime,
-            matchObj.groups.request,
-            matchObj.groups.status,
-            matchObj.groups.bytesSent,
-            matchObj.groups.httpReferer,
-            matchObj.groups.userAgent
-        );
-    }
+    return new LogData(
+      logObject.remoteHost,
+      logObject.remoteUser,
+      logObject.datetime != null ? new Date(logObject.datetime) : null,
+      logObject.request,
+      logObject.httpStatus,
+      logObject.bytesSent,
+      null,
+      null
+    );
+  }
 }
 
 export default LogParser;
