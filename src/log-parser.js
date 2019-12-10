@@ -1,16 +1,17 @@
 import LogData from './log-data';
 
-var tomcatAccessLogParser = require('tomcat-access-log-parser');
+const tomcatAccessLogParser = require('tomcat-access-log-parser');
 
-class LogParser {
+export default class LogParser {
 
   /**
    * @param {Array} lines
    */
   parseTomcatCommonFormat(lines) {
-    parsedLines = [];
+    const parsedLines = [];
+    const self = this;
     lines.forEach(function(line) {
-      parsedLines.append(this.parseTomcatCommonFormatLine(line))
+      parsedLines.push(self.parseTomcatCommonFormatLine(line));
     });
     return parsedLines;
   }
@@ -20,19 +21,16 @@ class LogParser {
    */
   parseTomcatCommonFormatLine(line) {
     const logString = tomcatAccessLogParser.parseCommonFormat(line);
-    const logObject = JSON.parse(logString);
+    const log = JSON.parse(logString);
 
     return new LogData(
-      logObject.remoteHost,
-      logObject.remoteUser,
-      logObject.datetime != null ? new Date(logObject.datetime) : null,
-      logObject.request,
-      logObject.httpStatus,
-      logObject.bytesSent,
-      null,
-      null
+      log.remoteHost,
+      log.remoteUser,
+      log.datetime != null ? new Date(log.datetime) : null,
+      log.request,
+      log.httpStatus,
+      log.bytesSent
     );
   }
-}
 
-export default LogParser;
+}

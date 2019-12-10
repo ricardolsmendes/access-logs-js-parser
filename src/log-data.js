@@ -1,4 +1,4 @@
-class LogData {
+export default class LogData {
 
   /**
    * @param {string} remoteHost
@@ -54,6 +54,5 @@ class LogData {
   get userAgent() {
     return this._userAgent;
   }
-}
 
-export default LogData;
+}
