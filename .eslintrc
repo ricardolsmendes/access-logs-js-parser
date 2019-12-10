@@ -1,0 +1,23 @@
+{
+  "extends": "standard",
+  "rules": {
+    ////////// Stylistic Issues //////////
+    "eol-last": ["error", "always"], // enforce at least one newline at the end of non-empty files
+    "indent": ["error", 2], // consistent indentation
+    "lines-between-class-members": ["error", "always", { // enforce lines between class members
+      "exceptAfterSingleLine": true
+    }],
+    "max-len": ["error", {
+      "code": 100 // a maximum line length to increase code readability and maintainability
+    }],
+    "operator-linebreak": 0, // consistent linebreak style for operators
+    "padded-blocks": ["error", { // enforce padding within blocks (off by default)
+      "classes": "always"
+    }],
+    "semi": [2, "always"], // require semicolons instead of ASI
+    "space-before-function-paren": 0,
+
+    ////////// Variables //////////
+    "no-undef": 0 // disallow use of undeclared variables unless mentioned in a /*global */ block
+  }
+}
