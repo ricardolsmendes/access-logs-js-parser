@@ -3,7 +3,6 @@ import LogParser from '../src/log-parser';
 
 const assert = require('assert');
 const sinon = require('sinon');
-const sprintf = require('sprintf-js').sprintf;
 
 const tomcatAccessLogParser = require('tomcat-access-log-parser');
 
@@ -18,8 +17,7 @@ describe('LogParser', function() {
   describe('parseTomcatCommonFormat', function() {
 
     it('calls parseTomcatCommonFormatLine for each line', function() {
-      sinon.stub(logParser, 'parseTomcatCommonFormatLine').callsFake(
-        (line) => sprintf('parsed %s', line));
+      sinon.stub(logParser, 'parseTomcatCommonFormatLine').callsFake((line) => `parsed ${line}`);
 
       const logs = logParser.parseTomcatCommonFormat(['line 1', 'line 2']);
 
