@@ -13,6 +13,8 @@
   },
   "author": "Ricardo Mendes <ricardolsmendes@gmail.com>",
   "scripts": {
+    "fix": "eslint --fix ./src ./test",
+    "lint": "eslint ./src ./test",
     "test": "mocha --require esm"
   },
   "dependencies": {
