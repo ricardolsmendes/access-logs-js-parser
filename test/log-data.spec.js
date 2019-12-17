@@ -1,3 +1,5 @@
+'use strict';
+
 import LogData from '../src/log-data';
 
 const assert = require('assert');

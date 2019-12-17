@@ -1,3 +1,5 @@
+'use strict';
+
 import LogData from './log-data';
 
 const tomcatAccessLogParser = require('tomcat-access-log-parser');
