@@ -1,12 +1,14 @@
 'use strict';
 
-import LogData from '../src/log-data';
-import LogParser from '../src/log-parser';
-
 const assert = require('assert');
 const sinon = require('sinon');
 
 const tomcatAccessLogParser = require('tomcat-access-log-parser');
+
+const {
+  LogData,
+  LogParser
+} = require('../src');
 
 describe('LogParser', function() {
 

@@ -1,6 +1,6 @@
 {
   "name": "access-logs-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Parse access logs (from Nginx, Tomcat, and others) into Data Transfer Objects.",
   "license": "MIT",
   "homepage": "https://github.com/ricardolsmendes/access-logs-node-parser#readme",
@@ -12,10 +12,11 @@
     "url": "https://github.com/ricardolsmendes/access-logs-node-parser/issues"
   },
   "author": "Ricardo Mendes <ricardolsmendes@gmail.com>",
+  "main": "./src/index.js",
   "scripts": {
     "fix": "eslint --fix ./src ./test",
     "lint": "eslint ./src ./test",
-    "test": "mocha --require esm"
+    "test": "mocha"
   },
   "dependencies": {
     "tomcat-access-log-parser": "github:ricardolsmendes/tomcat-access-log-js-parser"
@@ -23,11 +24,10 @@
   "devDependencies": {
     "eslint": "^6.7.1",
     "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "esm": "^3.2.25",
     "mocha": "^6.2.2",
     "sinon": "^7.5.0"
   }

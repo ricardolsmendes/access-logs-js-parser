@@ -1,10 +1,12 @@
 'use strict';
 
-import LogData from './log-data';
-
 const tomcatAccessLogParser = require('tomcat-access-log-parser');
 
-export default class LogParser {
+const {
+  LogData
+} = require('./log-data');
+
+class LogParser {
 
   /**
    * @param {Array} lines
@@ -36,3 +38,7 @@ export default class LogParser {
   }
 
 }
+
+module.exports = {
+  LogParser: LogParser
+};

@@ -1,6 +1,6 @@
 'use strict';
 
-export default class LogData {
+class LogData {
 
   /**
    * @param {string} remoteHost
@@ -58,3 +58,7 @@ export default class LogData {
   }
 
 }
+
+module.exports = {
+  LogData: LogData
+};

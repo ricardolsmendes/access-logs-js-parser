@@ -1,8 +1,10 @@
 'use strict';
 
-import LogData from '../src/log-data';
-
 const assert = require('assert');
+
+const {
+  LogData
+} = require('../src');
 
 describe('LogData', function() {
 
