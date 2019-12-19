@@ -2,9 +2,7 @@
 
 const tomcatAccessLogParser = require('tomcat-access-log-parser');
 
-const {
-  LogData
-} = require('./log-data');
+const { LogData } = require('./log-data');
 
 class LogParser {
 
@@ -14,9 +12,11 @@ class LogParser {
   parseTomcatCommonFormat(lines) {
     const parsedLines = [];
     const self = this;
+
     lines.forEach(function(line) {
       parsedLines.push(self.parseTomcatCommonFormatLine(line));
     });
+
     return parsedLines;
   }
 
@@ -39,6 +39,4 @@ class LogParser {
 
 }
 
-module.exports = {
-  LogParser: LogParser
-};
+module.exports = { LogParser: LogParser };

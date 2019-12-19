@@ -25,40 +25,22 @@ class LogData {
     this._userAgent = userAgent;
   }
 
-  get remoteHost() {
-    return this._remoteHost;
-  }
+  get remoteHost() { return this._remoteHost; }
 
-  get remoteUser() {
-    return this._remoteUser;
-  }
+  get remoteUser() { return this._remoteUser; }
 
-  get datetime() {
-    return this._datetime;
-  }
+  get datetime() { return this._datetime; }
 
-  get request() {
-    return this._request;
-  }
+  get request() { return this._request; }
 
-  get httpStatus() {
-    return this._httpStatus;
-  }
+  get httpStatus() { return this._httpStatus; }
 
-  get bytesSent() {
-    return this._bytesSent;
-  }
+  get bytesSent() { return this._bytesSent; }
 
-  get httpReferer() {
-    return this._httpReferer;
-  }
+  get httpReferer() { return this._httpReferer; }
 
-  get userAgent() {
-    return this._userAgent;
-  }
+  get userAgent() { return this._userAgent; }
 
 }
 
-module.exports = {
-  LogData: LogData
-};
+module.exports = { LogData: LogData };
