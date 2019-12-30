@@ -15,27 +15,13 @@ describe('LogParser', function() {
     logParser = new LogParser();
   });
 
-  describe('parseTomcatCommonFormat', function() {
-
-    it('calls parseTomcatCommonFormatLine for each line', function() {
-      sinon.stub(logParser, 'parseTomcatCommonFormatLine').callsFake((line) =>
-        `parsed ${line}`);
-
-      const logs = logParser.parseTomcatCommonFormat(['line 1', 'line 2']);
-
-      sinon.assert.calledTwice(logParser.parseTomcatCommonFormatLine);
-      assert.deepStrictEqual(logs, ['parsed line 1', 'parsed line 2']);
-    });
-
-  });
-
-  describe('parseTomcatCommonFormatLine', function() {
+  describe('parseAllTomcatCommonFormat', function() {
 
     it('calls tomcatAccessLogParser.parseCommonFormat()', function() {
       const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').callsFake(
         () => JSON.stringify({}));
 
-      logParser.parseTomcatCommonFormatLine('127.0.0.1 ...');
+      logParser.parseTomcatCommonFormat('127.0.0.1 ...');
 
       sinon.assert.calledOnce(tomcatAccessLogParser.parseCommonFormat);
 
@@ -55,13 +41,27 @@ describe('LogParser', function() {
       const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').callsFake(
         () => JSON.stringify(fakeReturn));
 
-      const logData = logParser.parseTomcatCommonFormatLine('127.0.0.1 ...');
+      const logData = logParser.parseTomcatCommonFormat('127.0.0.1 ...');
 
       assert.deepStrictEqual(logData, new LogData(
         '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'),
         'GET index.html', 200, 482));
 
       stub.restore();
+    });
+
+  });
+
+  describe('parseAllTomcatCommonFormat', function() {
+
+    it('calls parseTomcatCommonFormat for each line', function() {
+      sinon.stub(logParser, 'parseTomcatCommonFormat').callsFake((line) =>
+        `parsed ${line}`);
+
+      const logs = logParser.parseAllTomcatCommonFormat(['line 1', 'line 2']);
+
+      sinon.assert.calledTwice(logParser.parseTomcatCommonFormat);
+      assert.deepStrictEqual(logs, ['parsed line 1', 'parsed line 2']);
     });
 
   });

@@ -7,23 +7,9 @@ const { LogData } = require('./log-data');
 class LogParser {
 
   /**
-   * @param {Array} lines
-   */
-  parseTomcatCommonFormat(lines) {
-    const parsedLines = [];
-    const self = this;
-
-    lines.forEach(function(line) {
-      parsedLines.push(self.parseTomcatCommonFormatLine(line));
-    });
-
-    return parsedLines;
-  }
-
-  /**
    * @param {string} line
    */
-  parseTomcatCommonFormatLine(line) {
+  parseTomcatCommonFormat(line) {
     const logString = tomcatAccessLogParser.parseCommonFormat(line);
     const log = JSON.parse(logString);
 
@@ -35,6 +21,20 @@ class LogParser {
       log.httpStatus,
       log.bytesSent
     );
+  }
+
+  /**
+   * @param {Array} lines
+   */
+  parseAllTomcatCommonFormat(lines) {
+    const parsedLines = [];
+    const self = this;
+
+    lines.forEach(function(line) {
+      parsedLines.push(self.parseTomcatCommonFormat(line));
+    });
+
+    return parsedLines;
   }
 
 }
