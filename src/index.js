@@ -1,3 +1,5 @@
+'use strict';
+
 const { LogData } = require('./log-data');
 const { LogParser } = require('./log-parser');
 
