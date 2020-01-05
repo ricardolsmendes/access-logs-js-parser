@@ -30,7 +30,7 @@ class LogParser {
     const parsedLines = [];
     const self = this;
 
-    lines.forEach(function(line) {
+    lines.forEach(line => {
       parsedLines.push(self.parseTomcatCommonFormat(line));
     });
 

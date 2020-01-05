@@ -7,7 +7,7 @@ const tomcatAccessLogParser = require('tomcat-access-log-parser');
 
 const { LogData, LogParser } = require('../src');
 
-describe('LogParser', function() {
+describe('LogParser', () => {
 
   var logParser;
 
@@ -15,11 +15,11 @@ describe('LogParser', function() {
     logParser = new LogParser();
   });
 
-  describe('parseAllTomcatCommonFormat', function() {
+  describe('parseAllTomcatCommonFormat', () => {
 
-    it('calls tomcatAccessLogParser.parseCommonFormat()', function() {
-      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').callsFake(
-        () => JSON.stringify({}));
+    it('calls tomcatAccessLogParser.parseCommonFormat()', () => {
+      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').returns(JSON
+        .stringify({}));
 
       logParser.parseTomcatCommonFormat('127.0.0.1 ...');
 
@@ -28,8 +28,8 @@ describe('LogParser', function() {
       stub.restore();
     });
 
-    it('parses tomcatAccessLogParser.parseCommonFormat() result', function() {
-      const fakeReturn = {
+    it('parses tomcatAccessLogParser.parseCommonFormat() result', () => {
+      const fakeParsedObject = {
         remoteHost: '127.0.0.1',
         remoteUser: 'user-id',
         datetime: new Date('2019-12-09T21:00:00.000Z'),
@@ -38,8 +38,8 @@ describe('LogParser', function() {
         bytesSent: 482
       };
 
-      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').callsFake(
-        () => JSON.stringify(fakeReturn));
+      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').returns(JSON
+        .stringify(fakeParsedObject));
 
       const logData = logParser.parseTomcatCommonFormat('127.0.0.1 ...');
 
@@ -52,10 +52,10 @@ describe('LogParser', function() {
 
   });
 
-  describe('parseAllTomcatCommonFormat', function() {
+  describe('parseAllTomcatCommonFormat', () => {
 
-    it('calls parseTomcatCommonFormat for each line', function() {
-      sinon.stub(logParser, 'parseTomcatCommonFormat').callsFake((line) =>
+    it('calls parseTomcatCommonFormat for each line', () => {
+      sinon.stub(logParser, 'parseTomcatCommonFormat').callsFake(line =>
         `parsed ${line}`);
 
       const logs = logParser.parseAllTomcatCommonFormat(['line 1', 'line 2']);

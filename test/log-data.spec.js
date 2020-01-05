@@ -4,55 +4,55 @@ const assert = require('assert');
 
 const { LogData } = require('../src');
 
-describe('LogData', function() {
+describe('LogData', () => {
 
-  describe('constructor', function() {
+  describe('constructor', () => {
 
-    it('sets the remoteHost attribute', function() {
+    it('sets the remoteHost attribute', () => {
       const logData = new LogData('127.0.0.1');
       assert.strictEqual(logData.remoteHost, '127.0.0.1');
     });
 
-    it('sets the remoteUser attribute', function() {
+    it('sets the remoteUser attribute', () => {
       const logData = new LogData('127.0.0.1', 'user-id');
       assert.strictEqual(logData.remoteUser, 'user-id');
     });
 
-    it('sets the datetime attribute', function() {
+    it('sets the datetime attribute', () => {
       const logData = new LogData(
         '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'));
       assert.deepStrictEqual(logData.datetime, new Date('2019-12-09T21:00:00.000Z'));
     });
 
-    it('sets the request attribute', function() {
+    it('sets the request attribute', () => {
       const logData = new LogData(
         '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'), 'GET index.html'
       );
       assert.strictEqual(logData.request, 'GET index.html');
     });
 
-    it('sets the httpStatus attribute', function() {
+    it('sets the httpStatus attribute', () => {
       const logData = new LogData(
         '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'),
         'GET index.html', 200);
       assert.strictEqual(logData.httpStatus, 200);
     });
 
-    it('sets the bytesSent attribute', function() {
+    it('sets the bytesSent attribute', () => {
       const logData = new LogData(
         '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'),
         'GET index.html', 200, 482);
       assert.strictEqual(logData.bytesSent, 482);
     });
 
-    it('sets the httpReferer attribute', function() {
+    it('sets the httpReferer attribute', () => {
       const logData = new LogData(
         '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'),
         'GET index.html', 200, 482, 'http://referer.com');
       assert.strictEqual(logData.httpReferer, 'http://referer.com');
     });
 
-    it('sets the userAgent attribute', function() {
+    it('sets the userAgent attribute', () => {
       const logData = new LogData(
         '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'),
         'GET index.html', 200, 482, 'http://referer.com', 'Chrome');
