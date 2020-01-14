@@ -2,31 +2,31 @@
 
 const tomcatAccessLogParser = require('tomcat-access-log-parser');
 
-const { LogData } = require('./log-data');
-
 class LogParser {
 
   /**
    * @param {string} line
+   * @param {string} jsonKeysCase
    */
-  parseTomcatCommonFormat(line) {
-    const logString = tomcatAccessLogParser.parseCommonFormat(line);
+  parseTomcatCommonFormat(line, jsonKeysCase = 'default') {
+    const logString = jsonKeysCase === 'snake'
+      ? tomcatAccessLogParser.parseCommonFormatSnakeCaseKeys(line)
+      : tomcatAccessLogParser.parseCommonFormat(line);
+
     const log = JSON.parse(logString);
 
-    return new LogData(
-      log.remoteHost,
-      log.remoteUser,
-      log.datetime != null ? new Date(log.datetime) : null,
-      log.request,
-      log.httpStatus,
-      log.bytesSent
-    );
+    if (log.datetime && typeof log.datetime === 'string') {
+      log.datetime = new Date(log.datetime);
+    }
+
+    return log;
   }
 
   /**
    * @param {Array} lines
+   * @param {string} jsonKeysCase
    */
-  parseAllTomcatCommonFormat(lines) {
+  parseAllTomcatCommonFormat(lines, jsonKeysCase = 'default') {
     const parsedLines = [];
     const self = this;
 

@@ -5,7 +5,7 @@ const sinon = require('sinon');
 
 const tomcatAccessLogParser = require('tomcat-access-log-parser');
 
-const { LogData, LogParser } = require('../src');
+const { LogParser } = require('../src');
 
 describe('LogParser', () => {
 
@@ -15,9 +15,29 @@ describe('LogParser', () => {
     logParser = new LogParser();
   });
 
-  describe('parseAllTomcatCommonFormat', () => {
+  describe('parseTomcatCommonFormat', () => {
 
-    it('calls tomcatAccessLogParser.parseCommonFormat()', () => {
+    it('returns a JSON object', () => {
+      const fakeLogData = {
+        remoteHost: '127.0.0.1',
+        remoteUser: 'user-id',
+        datetime: new Date('2019-12-09T21:00:00.000Z'),
+        request: 'GET index.html',
+        httpStatus: 200,
+        bytesSent: 482
+      };
+
+      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').returns(JSON
+        .stringify(fakeLogData));
+
+      const parsedLogData = logParser.parseTomcatCommonFormat('127.0.0.1 ...');
+
+      assert.deepStrictEqual(parsedLogData, fakeLogData);
+
+      stub.restore();
+    });
+
+    it('parses into standard JSON by default', () => {
       const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').returns(JSON
         .stringify({}));
 
@@ -28,24 +48,13 @@ describe('LogParser', () => {
       stub.restore();
     });
 
-    it('parses tomcatAccessLogParser.parseCommonFormat() result', () => {
-      const fakeParsedObject = {
-        remoteHost: '127.0.0.1',
-        remoteUser: 'user-id',
-        datetime: new Date('2019-12-09T21:00:00.000Z'),
-        request: 'GET index.html',
-        httpStatus: 200,
-        bytesSent: 482
-      };
+    it('parses into JSON with snake case keys when requested', () => {
+      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormatSnakeCaseKeys')
+        .returns(JSON.stringify({}));
 
-      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').returns(JSON
-        .stringify(fakeParsedObject));
+      logParser.parseTomcatCommonFormat('127.0.0.1 ...', 'snake');
 
-      const logData = logParser.parseTomcatCommonFormat('127.0.0.1 ...');
-
-      assert.deepStrictEqual(logData, new LogData(
-        '127.0.0.1', 'user-id', new Date('2019-12-09T21:00:00.000Z'),
-        'GET index.html', 200, 482));
+      sinon.assert.calledOnce(tomcatAccessLogParser.parseCommonFormatSnakeCaseKeys);
 
       stub.restore();
     });
@@ -54,7 +63,7 @@ describe('LogParser', () => {
 
   describe('parseAllTomcatCommonFormat', () => {
 
-    it('calls parseTomcatCommonFormat for each line', () => {
+    it('parses all given lines', () => {
       sinon.stub(logParser, 'parseTomcatCommonFormat').callsFake(line =>
         `parsed ${line}`);
 
