@@ -9,9 +9,11 @@ class LogParser {
    * @param {string} jsonKeysCase
    */
   parseTomcatCommonFormat(line, jsonKeysCase = 'default') {
-    const logString = jsonKeysCase === 'snake'
-      ? tomcatAccessLogParser.parseCommonFormatSnakeCaseKeys(line)
-      : tomcatAccessLogParser.parseCommonFormat(line);
+    const logString = jsonKeysCase === 'snake' ?
+      tomcatAccessLogParser.parseCommonFormatSnakeCaseKeys(line) :
+      tomcatAccessLogParser.parseCommonFormat(line);
+
+    if (!logString) { return; }
 
     const log = JSON.parse(logString);
 
@@ -31,7 +33,8 @@ class LogParser {
     const self = this;
 
     lines.forEach(line => {
-      parsedLines.push(self.parseTomcatCommonFormat(line));
+      const log = self.parseTomcatCommonFormat(line);
+      if (log) { parsedLines.push(log); };
     });
 
     return parsedLines;

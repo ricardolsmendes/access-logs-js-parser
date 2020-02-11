@@ -59,11 +59,21 @@ describe('LogParser', () => {
       stub.restore();
     });
 
+    it('returns null when input is unparseable', () => {
+      const stub = sinon.stub(tomcatAccessLogParser, 'parseCommonFormat').returns();
+
+      const parsedLogData = logParser.parseTomcatCommonFormat('127.0.0.1');
+
+      assert(!parsedLogData);
+
+      stub.restore();
+    });
+
   });
 
   describe('parseAllTomcatCommonFormat', () => {
 
-    it('parses all given lines', () => {
+    it('tries to parse all given lines', () => {
       sinon.stub(logParser, 'parseTomcatCommonFormat').callsFake(line =>
         `parsed ${line}`);
 
@@ -71,6 +81,16 @@ describe('LogParser', () => {
 
       sinon.assert.calledTwice(logParser.parseTomcatCommonFormat);
       assert.deepStrictEqual(logs, ['parsed line 1', 'parsed line 2']);
+    });
+
+    it('ignores unparseable lines', () => {
+      sinon.stub(logParser, 'parseTomcatCommonFormat').callsFake(line =>
+        undefined);
+
+      const logs = logParser.parseAllTomcatCommonFormat(['line 1', 'line 2']);
+
+      sinon.assert.calledTwice(logParser.parseTomcatCommonFormat);
+      assert.deepStrictEqual(logs, []);
     });
 
   });
