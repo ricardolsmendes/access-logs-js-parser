@@ -9,7 +9,7 @@ const { LogParser } = require('../src');
 
 describe('LogParser', () => {
 
-  var logParser;
+  let logParser;
 
   beforeEach(() => {
     logParser = new LogParser();
